@@ -15,8 +15,25 @@ Through data analysis and machine learning, this project investigates whether re
 
 This project provides valuable insights into the relationship between recipe names, ingredient perception, and user ratings, contributing to a better understanding of how people interact with and evaluate online recipes.
 
+The number of rows in the dataset are 
+
+| Column          | Description                                                                                           |
+|------------------|-------------------------------------------------------------------------------------------------------|
+| `name`          | Recipe name                                                                                          |
+| `id`            | Recipe ID                                                                                            |
+| `minutes`       | Minutes to prepare recipe                                                                            |
+| `contributor_id`| User ID who submitted this recipe                                                                     |
+| `submitted`     | Date the recipe was submitted                                                                         |
+| `tags`          | Food.com tags for the recipe                                                                          |
+| `nutrition`     | Nutrition information in the form `[calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]`; PDV stands for “percentage of daily value” |
+| `n_steps`       | Number of steps in the recipe                                                                         |
+| `steps`         | Text for recipe steps, in order                                                                       |
+| `description`   | User-provided description                                                                             |
+| `ingredients`   | Text for recipe ingredients                                                                           |
+| `n_ingredients` | Number of ingredients in the recipe                                                                   |
 
 ## Data Cleaning and Exploratory Data Analysis
+
 
 ### Data cleaning
 
