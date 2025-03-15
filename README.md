@@ -120,7 +120,6 @@ Overall, this result suggests that n_steps and n_ingredients alone are not stron
 
 # Final Model
 
-Final Model: Feature Selection and Justification
 In my final model, I utilized the following features:
 
 contains_beef_name
@@ -173,38 +172,33 @@ R² Score: 0.0015
 
 # Fairness Analysis
 
-For my fairness analysis, I investigated model parity between two groups: high sodium recipes and low sodium recipes. To categorize recipes into these groups, I compared their sodium PDV (percent daily value) to the median sodium PDV. If a recipe’s sodium PDV was greater than or equal to the median, I classified it as a high sodium recipe. Otherwise, I classified it as a low sodium recipe.
+For my fairness analysis, I examined whether my model performed equally well across two groups: high sodium recipes and low sodium recipes. To categorize recipes into these groups, I compared their sodium PDV (percent daily value) to the median sodium PDV. If a recipe’s sodium PDV was greater than or equal to the median, I classified it as a high sodium recipe. Otherwise, I classified it as a low sodium recipe.
 
-I chose Mean Squared Error (MSE) as my evaluation metric because large deviations between actual ratings and predicted ratings are significantly worse than minor deviations. If the model consistently performs worse for one group, it could suggest bias in the model’s predictions.
+I chose Mean Squared Error (MSE) as my evaluation metric because large deviations between actual ratings and predicted ratings are more concerning than minor deviations. If the model consistently performs worse for one group, this could indicate bias in its predictions.
 
-Hypotheses:
+Hypotheses
 Null Hypothesis: The MSE of the model across recipes with high sodium and low sodium is roughly the same. The model achieves MSE parity across these two groups.
 Alternative Hypothesis: The MSE of the model across recipes with high sodium and low sodium is not the same. The model does not achieve MSE parity across these two groups.
-Test Statistic:
-Absolute difference between the MSE of our final model for recipes with high sodium and recipes with low sodium.
-Significance Level:
-α = 0.05
-I chose 0.05 as the significance level because a Type-1 error (rejecting the null hypothesis when it is actually true) is not particularly harmful in our case.
+Test Statistic
+I used the absolute difference between the MSE of the final model for high sodium recipes and low sodium recipes as my test statistic.
+
+Significance Level
+I chose α = 0.05 as the significance level because a Type-1 error (rejecting the null hypothesis when it is actually true) is not particularly harmful in this case.
+
 Permutation Test for Fairness Analysis
-To conduct this fairness analysis, I:
+To conduct this fairness analysis, I followed these steps:
 
 Computed the MSE for both high sodium and low sodium recipes separately.
 Randomly shuffled the sodium labels (high vs. low sodium) to break any potential relationship between sodium level and prediction error.
-Repeated this permutation process 1000 times to create a distribution of differences in MSE under the null hypothesis.
+Repeated this permutation process 1000 times to create a distribution of MSE differences under the null hypothesis.
 Compared the observed difference in MSE to the permuted differences to compute a p-value.
-
-
 Results and Conclusion
-My fairness analysis yielded a p-value of 0.008. Thus, we reject the null hypothesis. This result suggests that the MSE of our model across recipes with high sodium and low sodium is not the same.
+The fairness analysis yielded:
 
-This indicates that our final model may be unfair across these two groups, as it predicts ratings less accurately for one group compared to the other. This bias could be due to an underlying relationship between sodium content and recipe ratings that the model has not captured effectively.
+Observed MSE Difference: 0.0236
+P-Value: 0.2760
+Since the p-value is greater than 0.05, we fail to reject the null hypothesis. This suggests that our model does not exhibit significant bias in predicting ratings for high sodium vs. low sodium recipes.
 
-Next Steps
-To mitigate this bias, further improvements could be made, such as:
-
-Introducing more features related to sodium intake (e.g., total fat, sugar) to better understand how nutritional values affect ratings.
-Testing different models (e.g., Gradient Boosting, XGBoost) to see if other regressors provide a more balanced performance across groups.
-Investigating interactions between sodium and other variables to determine whether certain subgroups (e.g., high sodium & high protein) experience more bias than others.
-By addressing these issues, we can work toward building a more equitable prediction model.
+Although a difference in MSE exists, it is not statistically significant at the α = 0.05 level, meaning any observed disparity in prediction error could be due to random chance rather than inherent unfairness in the model.
 
 
