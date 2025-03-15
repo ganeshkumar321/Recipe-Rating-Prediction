@@ -15,7 +15,7 @@ Through data analysis and machine learning, this project investigates whether re
 
 This project provides valuable insights into the relationship between recipe names, ingredient perception, and user ratings, contributing to a better understanding of how people interact with and evaluate online recipes.
 
-The number of rows in the dataset are 
+The number of rows in the recipes dataset is 83782, with the columns names shown below:
 
 | Column          | Description                                                                                           |
 |------------------|-------------------------------------------------------------------------------------------------------|
@@ -32,12 +32,38 @@ The number of rows in the dataset are
 | `ingredients`   | Text for recipe ingredients                                                                           |
 | `n_ingredients` | Number of ingredients in the recipe                                                                   |
 
+The number of rows in the interactions dataset is 731927 with the column names shown below:
+
+| Column     | Description          |
+|------------|----------------------|
+| `user_id`  | User ID              |
+| `recipe_id`| Recipe ID            |
+| `date`     | Interaction Date     |
+| `rating`   | Rating               |
+| `review`   | Review text          |
+
+The columns most relevant to my question are "name", "description", "description", and "ingredients" in recipes, along with "rating" in interactions.
+
 ## Data Cleaning and Exploratory Data Analysis
 
 
 ### Data cleaning
 
 First I merged the recipes and the interactions data frame on their relative IDs. Then I replaced every 0 with a null value because the scale is only from 1-5, so if someone gave a 0, it means that they just didn't fill it out, not necessarily that they thought it was that bad. Then I found the average of each recipe by grouping by the ID and then calculating the mean, then added it to another column in the recipes_df dataframe. In addition to this, I changed the types of some of the columns such as tags, steps, and ingredients from strings to lists because it was easier to digest. The nutrition column contained many different information such as calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), and carbohydrates, so I expanded the nutrition column into many different columns. Then I created 3 boolean columns if the word 'beef' or beef related words such as "steak", "hamburger", "meatloaf", "sloppy joe", "brisket" existed in the recipe_name, ingredients, and the description.
+
+My cleaned dataset contained 83,782 rows and 22 columns
+
+Here is a preview of the first 5 rows. 
+<!-- It is important to note that some columns have been removed as their values were too large to be effectively displayed on this site. -->
+
+| name                                | id      | submitted           | minutes | n_steps | n_ingredients | rating | contains_beef_name | contains_beef_ingredients | contains_beef_description |
+|-------------------------------------|---------|---------------------|---------|---------|--------------|--------|--------------------|-----------------------|-------------------------|
+| 1 brownies in the world best ever  | 333281  | 2008-10-27 00:00:00 | 40      | 10      | 9            | 4      | False              | False                 | False                   |
+| 1 in canada chocolate chip cookies | 453467  | 2011-04-11 00:00:00 | 45      | 12      | 11           | 5      | False              | False                 | False                   |
+| 412 broccoli casserole             | 306168  | 2008-05-30 00:00:00 | 40      | 6       | 9            | 5      | False              | False                 | False                   |
+| millionaire pound cake             | 286009  | 2008-02-12 00:00:00 | 120     | 7       | 7            | 5      | False              | False                 | False                   |
+| 2000 meatloaf                      | 475785  | 2012-03-06 00:00:00 | 90      | 17      | 13           | 5      | True               | True                  | True                    |
+
 
 ### Univariate Analysis
 
