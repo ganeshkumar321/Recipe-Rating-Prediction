@@ -29,6 +29,35 @@ Expanded the nutrition column to different columns per string
 
 Created a boolean column to see if the word beef or beef-related key words exist in the recipe name
 
+### Univariate Analysis
+
+The distribution of average recipe ratings is left-skewed, with most recipes having a rating close to 5.0, indicating a generally positive 
+reception. The visible clusters around integers (1, 2, 3, 4, and 5) suggest that many recipes may have received only a few ratings, 
+keeping their mean rating at whole numbers.
+
+The box plot shows that most recipes take under 60 minutes, but there are a few extreme outliers with significantly longer preparation times.
+The presence of these outliers suggests that some recipes, likely elaborate ones, require much more effort than the average dish
+
+### Bivariate Analysis
+
+1st plot
+The box plot shows that recipes containing "beef" in their name tend to have slightly lower ratings compared to recipes without "beef."
+The lower whisker and first quartile for beef recipes suggest that these recipes might be more polarizing among users, with some lower 
+ratings pulling down the median.
+
+2nd plot
+The scatter plot indicates that most recipes fall under 100 minutes of preparation time, with no clear correlation between cooking time 
+and rating. However, there are a few longer-duration recipes (over 200 minutes) that tend to have high ratings, suggesting that some long, 
+elaborate recipes may be highly appreciated by users.
+
+
+### Interesting Aggregates
+
+The pivot tables reveal how the presence of "chocolate" in a recipe's name, ingredients, or description affects its average rating. 
+Recipes with "chocolate" in the name may indicate user preference for chocolate-themed dishes, while chocolate in the ingredients 
+shows whether its actual inclusion impacts ratings. Lastly, mentioning chocolate in the description could suggest that appealing 
+descriptions influence user perception, highlighting the role of marketing and expectations in recipe ratings.
+
 
 
 
