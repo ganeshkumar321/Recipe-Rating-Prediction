@@ -56,13 +56,13 @@ My cleaned dataset contained 83,782 rows and 22 columns
 Here is a preview of the first 5 rows. 
 <!-- It is important to note that some columns have been removed as their values were too large to be effectively displayed on this site. -->
 
-| name                                | id      | submitted           | minutes | n_steps | n_ingredients | rating | contains_beef_name | contains_beef_ingredients | contains_beef_description |
-|-------------------------------------|---------|---------------------|---------|---------|--------------|--------|--------------------|-----------------------|-------------------------|
-| 1 brownies in the world best ever  | 333281  | 2008-10-27 00:00:00 | 40      | 10      | 9            | 4      | False              | False                 | False                   |
-| 1 in canada chocolate chip cookies | 453467  | 2011-04-11 00:00:00 | 45      | 12      | 11           | 5      | False              | False                 | False                   |
-| 412 broccoli casserole             | 306168  | 2008-05-30 00:00:00 | 40      | 6       | 9            | 5      | False              | False                 | False                   |
-| millionaire pound cake             | 286009  | 2008-02-12 00:00:00 | 120     | 7       | 7            | 5      | False              | False                 | False                   |
-| 2000 meatloaf                      | 475785  | 2012-03-06 00:00:00 | 90      | 17      | 13           | 5      | True               | True                  | True                    |
+| name                                | id      | minutes | contributor_id | sodium | protein | saturated_fat | carbohydrates |
+|-------------------------------------|---------|---------|----------------|--------|---------|---------------|---------------|
+| 1 brownies in the world best ever  | 333281  |  40      | 985201         | 3.0    | 3.0     | 19.0          | 6.0           |
+| 1 in canada chocolate chip cookies | 453467  |  45      | 1848091        | 22.0   | 13.0    | 51.0          | 26.0          |
+| 412 broccoli casserole             | 306168  |  40      | 50969          | 32.0   | 22.0    | 36.0          | 3.0           |
+| millionaire pound cake             | 286009  |  120     | 461724         | 13.0   | 20.0    | 123.0         | 39.0          |
+| 2000 meatloaf                      | 475785  |  90      | 2202916        | 12.0   | 29.0    | 48.0          | 2.0           |
 
 
 ### Univariate Analysis
