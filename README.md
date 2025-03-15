@@ -4,14 +4,14 @@ by: Ganesh Kumarappan
 
 ## Introduction
 
-Food is an essential part of daily life, and recipe ratings provide valuable insights into what people enjoy cooking and eating. This project explores how the presence of "beef" or beef-related words in a recipe’s name affects its overall rating.
+Food is an essential part of life, and analyzing recipe ratings provides valuable insight to what people are eating and enjoying these days. This project explores how the having the word "beef" or beef-related words in a recipe’s name affects its overall rating.
 
 The central question of this project is:
 Does having the word "beef" or beef-related terms in a recipe’s name influence its average rating compared to other recipes?
 
-Understanding how specific keywords in recipe names impact ratings can be useful for food bloggers, chefs, and recipe developers who want to optimize their content for audience engagement. If certain words consistently correlate with higher or lower ratings, it could inform how recipes are named and marketed on food-related platforms.
+Understanding how specific keywords in recipe names impact ratings can be useful for food bloggers, chefs, and recipe developers who want to optimize their content for audiences. If certain words consistently correlate with higher or lower ratings, it could affect how recipes are named and marketed.
 
-Through data analysis and machine learning, this project investigates whether recipes with beef-related terms receive significantly different ratings than other recipes, tests the statistical significance of this difference, and develops predictive models to estimate ratings based on recipe characteristics. Additionally, a fairness analysis ensures that our model does not introduce unintended biases against certain types of recipes.
+Through data analysis and machine learning, this project investigates whether recipes with beef-related terms receive significantly different ratings than other recipes. Additionally, it also tests the statistical significance of this difference, and develops predictive models to estimate ratings based on recipe characteristics. Additionally, a fairness analysis ensures that our model does not introduce  biases against certain types of recipes.
 
 This project provides valuable insights into the relationship between recipe names, ingredient perception, and user ratings, contributing to a better understanding of how people interact with and evaluate online recipes.
 
@@ -20,23 +20,12 @@ This project provides valuable insights into the relationship between recipe nam
 
 ### Data cleaning
 
-First I merged the recipes and the interactions data frame on their relative IDs
-Then I replaced every 0 with a null value because the scale is only from 1-5, so if someone gave a 0, it means that they just didn't fill it out, not necessarily that they thought it was that bad
-Found the average of each recipe by grouping by the ID and then calculating the mean, then added it to another column in the merged dataframe
-
-Converted tags, steps, ingredients to lists
-Expanded the nutrition column to different columns per string
-
-Created a boolean column to see if the word beef or beef-related key words exist in the recipe name
+First I merged the recipes and the interactions data frame on their relative IDs. Then I replaced every 0 with a null value because the scale is only from 1-5, so if someone gave a 0, it means that they just didn't fill it out, not necessarily that they thought it was that bad. Then I found the average of each recipe by grouping by the ID and then calculating the mean, then added it to another column in the recipes_df dataframe. In addition to this, I changed the types of some of the columns such as tags, steps, and ingredients from strings to lists because it was easier to digest. The nutrition column contained many different information such as calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), and carbohydrates, so I expanded the nutrition column into many different columns. Then I created 3 boolean columns if the word 'beef' or beef related words such as "steak", "hamburger", "meatloaf", "sloppy joe", "brisket" existed in the recipe_name, ingredients, and the description.
 
 ### Univariate Analysis
 
-The distribution of average recipe ratings is left-skewed, with most recipes having a rating close to 5.0, indicating a generally positive 
-reception. The visible clusters around integers (1, 2, 3, 4, and 5) suggest that many recipes may have received only a few ratings, 
-keeping their mean rating at whole numbers.
+The distribution of average recipe ratings is skewed towards the upper end with most recipes having a rating close to 5, which. As we can see, the clusters are more visible at whole integers, which may suggest that recipes only got a few ratings, thus keeping their averages at or near whole numbers. 
 
-The box plot shows that most recipes take under 60 minutes, but there are a few extreme outliers with significantly longer preparation times.
-The presence of these outliers suggests that some recipes, likely elaborate ones, require much more effort than the average dish
 
 ### Bivariate Analysis
 
