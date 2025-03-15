@@ -29,44 +29,33 @@ The distribution of average recipe ratings is skewed towards the upper end with 
 
 ### Bivariate Analysis
 
-1st plot
-The box plot shows that recipes containing "beef" in their name tend to have slightly lower ratings compared to recipes without "beef."
-The lower whisker and first quartile for beef recipes suggest that these recipes might be more polarizing among users, with some lower 
+The box plot shows that recipes containing "beef" in their name tend to have  lower ratings compared to recipes without "beef."
+The lower whisker and first quartile for beef recipes suggest that these recipes might be more polarizing, with some lower 
 ratings pulling down the median.
-
-2nd plot
-The scatter plot indicates that most recipes fall under 100 minutes of preparation time, with no clear correlation between cooking time 
-and rating. However, there are a few longer-duration recipes (over 200 minutes) that tend to have high ratings, suggesting that some long, 
-elaborate recipes may be highly appreciated by users.
 
 
 ### Interesting Aggregates
 
-The pivot tables reveal how the presence of "chocolate" in a recipe's name, ingredients, or description affects its average rating. 
-Recipes with "chocolate" in the name may indicate user preference for chocolate-themed dishes, while chocolate in the ingredients 
-shows whether its actual inclusion impacts ratings. Lastly, mentioning chocolate in the description could suggest that appealing 
-descriptions influence user perception, highlighting the role of marketing and expectations in recipe ratings.
+The pivot tables show how having "chocolate" in a recipe's name, ingredients, or description affects its average rating. 
+Recipes with "chocolate" in the name can indicate user preference for chocolate-themed dishes, while chocolate in the ingredients 
+shows whether its actual inclusion impacts ratings. Lastly, mentioning chocolate in the description could suggest that having appealing descriptions can influence users' decisions.
 
 ## Assessment of Missingness
 
-My initial merged dataset (the recipes dataset after step 1 of the data cleaning process) contained three columns with missing data: name, description, and rating. Since the chocolate_in_name, chocolate_in_ingredients, and chocolate_in_description columns were derived from these, they also contain missing values.
-
 ### NMAR Analysis
-I believe that the missing data in the rating column is likely Not Missing At Random (NMAR). Users who feel indifferent about a recipe may choose not to leave a review, while those who either love or strongly dislike a recipe may be more motivated to submit a rating. Since the decision to rate is influenced by the user's experience, rather than randomness, it is reasonable to suspect that rating is not missing at random.
+I think that the missing data in the rating column is most likely Not Missing At Random (NMAR). Users who don't have any strong feelings about a recipe may choose not to leave a review, while those who have strong views of love or strongly dislike a recipe may be more likely to submit a rating. Since the decision to rate is influenced by the user's experience, rather than randomness and other columns, it is reasonable conclude that the data is not missing at random.
 
 ## Missingness Dependency
-To explore further relationships in the data, I analyzed whether the missingness of the rating column depends on two other variables:
+To explore relationships in the data, I analyzed whether the missingness of the rating column depends on two other variables: n_ingredients (the number of ingredients in a recipe) and calories (the calorie content of the recipe)
 
-n_ingredients (the number of ingredients in a recipe)
-calories (the calorie content of the recipe)
-Missingness of Rating Based on n_ingredients
+Missingness of Rating Based on n_ingredients:
 Null Hypothesis (H₀): The missingness of ratings does not depend on the number of ingredients in a recipe.
 Alternative Hypothesis (H₁): The missingness of ratings does depend on the number of ingredients in a recipe.
 Statistic: The absolute difference between the mean n_ingredients of recipes with missing ratings and recipes with non-missing ratings.
 Significance Level: α = 0.05
 The observed difference in the number of ingredients between recipes with and without missing ratings is 0.25. The p-value is 0.002, which is less than 0.05, meaning that this result is statistically significant. Since none of the permuted differences were as extreme as the observed difference, we reject the null hypothesis and conclude that the missingness of ratings is dependent on the number of ingredients.
 
-Missingness of Rating Based on Calories
+Missingness of Rating Based on Calories:
 Null Hypothesis (H₀): The missingness of ratings does not depend on the calorie content of the recipe.
 Alternative Hypothesis (H₁): The missingness of ratings does depend on the calorie content of the recipe.
 Statistic: The absolute difference between the mean calorie count of recipes with missing ratings and recipes with non-missing ratings.
@@ -74,9 +63,7 @@ Significance Level: α = 0.05
 The observed difference in calories between recipes with and without missing ratings is 87.86. However, the p-value is 1.0 (rounded from 0.00e+00), which is greater than 0.05. This means that the difference could have happened by random chance, and we fail to reject the null hypothesis. Therefore, our results suggest that the missingness of ratings is not dependent on calorie content.
 
 Conclusion
-The missingness of ratings is dependent on the number of ingredients, meaning that recipes with fewer or more ingredients may be more likely to have missing ratings.
-However, the missingness of ratings is not dependent on calorie content, indicating that caloric value does not influence whether a recipe receives a rating.
-This analysis helps identify whether missing ratings are structured or random, which is useful for further modeling and imputation strategies
+The likelihood of missing ratings depends on the number of ingredients, suggesting that recipes with fewer ingredients may be more prone to missing ratings, possibly because simpler meals require less effort and engagement. However, missing ratings do not appear to be influenced by the calories, indicating that calorie count does not impact whether a recipe receives a rating. This analysis helps determine whether missing ratings follow a pattern or occur randomly, providing valuable insights for modeling and imputation strategies.
 
 # Hypothesis Testing
 
@@ -91,34 +78,27 @@ I chose this alternate hypothesis because we are interested in whether beef-base
 
 Statistic: Absolute difference between the mean rating of recipes with beef-related terms in the name and the mean rating of all recipes.
 
-Because this is a two-sided test, I chose to use the absolute difference in means to capture any deviation.
-
 Significance Level: α = 0.05
 
-I chose 0.05 as the significance level because a Type-1 error (rejecting the null hypothesis when it is actually true) is not particularly harmful in this context.
+To test this hypothesis, I first calculated the observed difference in mean ratings between beef-based recipes and all recipes. Next, I generated 1,000 permuted samples by randomly shuffling the ratings and computing the absolute difference between the sample mean and the overall mean. I then visualized the resulting permutation distribution using a histogram.
 
-To conduct this hypothesis test, I first calculated the observed difference in mean ratings between beef-based recipes and all recipes. I then created 1000 permuted samples by randomly shuffling the ratings and computing the absolute difference between the sample mean and the overall mean. The resulting permutation distribution was visualized in a histogram.
+After conducting the test, none of the 1,000 permuted samples had a test statistic as extreme as the observed value.
 
-Following these steps, 0 out of 1000 observations were as extreme as the observed test statistic.
-
-Thus, the p-value is 0.0. We reject the null hypothesis. This test suggests that the mean rating of recipes with "beef" or beef-related terms in their name is significantly different from the mean rating of all recipes.
+As a result, the p-value is 0.0, leading us to reject the null hypothesis. This suggests that recipes with "beef" or beef-related terms in their name have a significantly different mean rating compared to all recipes.
 
 
 # Framing a Prediction Problem
 
-Prediction Problem: I will attempt to predict the average rating of a recipe using regression. Ratings serve as a quantifiable measure of how well-received a recipe is, making it a valuable prediction target. Unlike my previous analysis on specific recipe categories like beef-related recipes, this model aims to generalize predictions across all recipes.
+I will build a regression model to predict the average rating of a recipe. Since ratings reflect how well a recipe is received, they serve as a meaningful prediction target. Unlike my previous analysis focused on specific recipe categories, such as beef-based recipes, this model aims to make predictions across all recipes.
 
-Type of Prediction Model:
-This is a regression problem, as the response variable (rating) is continuous rather than categorical.
+Type of Model:
+This is a regression problem, as the target variable (rating) is continuous rather than categorical.
 
-Response Variable (Target):
-The response variable is rating, as it represents the overall quality and reception of a recipe.
+Target Variable:
+The response variable is the recipe rating, which represents its overall quality and reception.
 
-Choice of Evaluation Metric:
-I will use Mean Squared Error (MSE) as the primary evaluation metric because:
-
-MSE penalizes large deviations more than small ones, making it ideal for capturing prediction errors in a continuous target like ratings.
-Since ratings are skewed toward higher values (closer to 5), I will also consider R-squared (R²) to assess the proportion of variance explained by the model.
+Evaluation Metric:
+I will use Mean Squared Error (MSE) as the primary evaluation metric because: MSE penalizes larger errors more heavily, making it effective for capturing prediction inaccuracies in a continuous variable like ratings. Since ratings are skewed toward higher values (closer to 5), I will also consider R-squared (R²) to measure how well the model explains the variance in ratings.
 
 # Baseline Model
 
@@ -134,7 +114,7 @@ n_ingredients (quantitative) - Represents the number of ingredients in a recipe.
 Since both features are already numerical, I did not need to apply any categorical encoding. However, I applied feature scaling using StandardScaler to normalize the numerical values and prevent potential issues caused by differences in scale.
 
 The mean squared error (MSE) for the test data is 0.4045, and the R² (coefficient of determination) score is -0.0004.
-An R² value close to zero (or negative) suggests that the model performs poorly—essentially, it fails to explain the variance in ratings better than a simple mean predictor.
+An R² value close to zero (or negative) suggests that the model performs poorly and it fails to explain the variance in ratings better than a simple mean predictor.
 
 Overall, this result suggests that n_steps and n_ingredients alone are not strong predictors of recipe ratings. To improve model performance, I will consider incorporating additional features such as categorical variables (e.g., recipe tags, cuisine type) and experiment with more complex models in the next iteration.
 
