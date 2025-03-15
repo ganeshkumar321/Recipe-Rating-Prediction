@@ -131,7 +131,117 @@ I will use Mean Squared Error (MSE) as the primary evaluation metric because:
 MSE penalizes large deviations more than small ones, making it ideal for capturing prediction errors in a continuous target like ratings.
 Since ratings are skewed toward higher values (closer to 5), I will also consider R-squared (R²) to assess the proportion of variance explained by the model.
 
+# Baseline Model
 
 Baseline Model
-Final Model
-Fairness Analysis
+For my baseline model, I utilized a linear regression model with default hyperparameters.
+
+First, I removed any rows containing missing values in the selected columns to ensure the model trained on complete data. I then split the data into a training set (80%) and a test set (20%).
+
+For the baseline model, I utilized two features:
+
+n_steps (quantitative) - Represents the number of steps in a recipe.
+n_ingredients (quantitative) - Represents the number of ingredients in a recipe.
+Since both features are already numerical, I did not need to apply any categorical encoding. However, I applied feature scaling using StandardScaler to normalize the numerical values and prevent potential issues caused by differences in scale.
+
+The mean squared error (MSE) for the test data is 0.4045, and the R² (coefficient of determination) score is -0.0004.
+An R² value close to zero (or negative) suggests that the model performs poorly—essentially, it fails to explain the variance in ratings better than a simple mean predictor.
+
+Overall, this result suggests that n_steps and n_ingredients alone are not strong predictors of recipe ratings. To improve model performance, I will consider incorporating additional features such as categorical variables (e.g., recipe tags, cuisine type) and experiment with more complex models in the next iteration.
+
+# Final Model
+
+You said:
+
+also here are the results from the code of the 2 final models 
+ChatGPT said:
+Here’s the revised final model description incorporating your results:
+
+Final Model: Feature Selection and Justification
+In my final model, I utilized the following features:
+
+contains_beef_name
+This feature indicates whether the word "beef" appears in the name of a recipe. Based on my previous analysis, I observed slight differences in ratings between recipes with and without "beef" in the name. This could reflect consumer preferences for beef-based recipes, making it a useful feature. I one-hot encoded this column to differentiate between these categories.
+
+contains_beef_ingredients
+This feature identifies if "beef" or beef-related products are listed in the recipe's ingredients. Since ingredient lists provide a stronger indication of a dish’s actual composition than just the name, this feature may capture variations in ratings influenced by beef-based ingredients. I applied one-hot encoding to this feature.
+
+sugar
+This feature represents the percentage daily value of sugar in a recipe. During my analysis, I noticed that recipes with extreme amounts of sugar may have different ratings. To mitigate the effects of extreme outliers, I applied a QuantileTransformer, which helps normalize the distribution.
+
+protein
+Protein content is another nutritional aspect that may influence ratings, as some users may favor high-protein recipes for health reasons. Similar to the sugar column, I used a QuantileTransformer to standardize the values and handle outliers.
+
+n_steps
+This feature represents the number of steps in a recipe. Recipes with more steps could be perceived as too complex or, alternatively, as more refined and detailed, which could influence ratings. I normalized this feature using a QuantileTransformer.
+
+n_ingredients
+The number of ingredients in a recipe is an essential measure of complexity. Simpler recipes may be preferred due to convenience, while highly ingredient-heavy recipes may be perceived as more flavorful or gourmet. I also applied a QuantileTransformer to normalize the distribution of this feature.
+
+Model Selection and Hyperparameter Tuning
+For the modeling algorithm, I explored two options:
+
+Final Model 1: Linear Regression
+For this model, I retained the linear regression approach from my baseline model but incorporated additional transformed features. Linear regression is useful for understanding how each feature contributes to the predicted rating, but its predictive power is limited due to the complexity of interactions between different features.
+
+Results for Final Model 1 (Linear Regression):
+Mean Squared Error (MSE): 0.4040
+R² Score: 0.0007
+While the performance was similar to the baseline model, the additional features did not significantly improve predictive power, suggesting a more complex model might be needed.
+
+Final Model 2: Random Forest Regressor with Hyperparameter Tuning
+To address the limitations of linear regression, I implemented a Random Forest Regressor, which is better suited for capturing non-linear interactions. I tuned the following hyperparameters using GridSearchCV:
+
+max_depth: The depth of trees in the random forest (values tested: 5, 10)
+min_samples_split: The minimum number of samples required to split an internal node (10, 20)
+n_estimators: The number of trees in the forest (100, 200)
+After tuning, the best combination of hyperparameters was:
+
+max_depth = 5
+
+min_samples_split = 10
+
+n_estimators = 200
+
+Results for Final Model 2 (Random Forest Regressor):
+
+Mean Squared Error (MSE): 0.4037
+R² Score: 0.0015
+
+# Fairness Analysis
+
+For my fairness analysis, I investigated model parity between two groups: high sodium recipes and low sodium recipes. To categorize recipes into these groups, I compared their sodium PDV (percent daily value) to the median sodium PDV. If a recipe’s sodium PDV was greater than or equal to the median, I classified it as a high sodium recipe. Otherwise, I classified it as a low sodium recipe.
+
+I chose Mean Squared Error (MSE) as my evaluation metric because large deviations between actual ratings and predicted ratings are significantly worse than minor deviations. If the model consistently performs worse for one group, it could suggest bias in the model’s predictions.
+
+Hypotheses:
+Null Hypothesis: The MSE of the model across recipes with high sodium and low sodium is roughly the same. The model achieves MSE parity across these two groups.
+Alternative Hypothesis: The MSE of the model across recipes with high sodium and low sodium is not the same. The model does not achieve MSE parity across these two groups.
+Test Statistic:
+Absolute difference between the MSE of our final model for recipes with high sodium and recipes with low sodium.
+Significance Level:
+α = 0.05
+I chose 0.05 as the significance level because a Type-1 error (rejecting the null hypothesis when it is actually true) is not particularly harmful in our case.
+Permutation Test for Fairness Analysis
+To conduct this fairness analysis, I:
+
+Computed the MSE for both high sodium and low sodium recipes separately.
+Randomly shuffled the sodium labels (high vs. low sodium) to break any potential relationship between sodium level and prediction error.
+Repeated this permutation process 1000 times to create a distribution of differences in MSE under the null hypothesis.
+Compared the observed difference in MSE to the permuted differences to compute a p-value.
+
+
+Results and Conclusion
+My fairness analysis yielded a p-value of 0.008. Thus, we reject the null hypothesis. This result suggests that the MSE of our model across recipes with high sodium and low sodium is not the same.
+
+This indicates that our final model may be unfair across these two groups, as it predicts ratings less accurately for one group compared to the other. This bias could be due to an underlying relationship between sodium content and recipe ratings that the model has not captured effectively.
+
+Next Steps
+To mitigate this bias, further improvements could be made, such as:
+
+Introducing more features related to sodium intake (e.g., total fat, sugar) to better understand how nutritional values affect ratings.
+Testing different models (e.g., Gradient Boosting, XGBoost) to see if other regressors provide a more balanced performance across groups.
+Investigating interactions between sodium and other variables to determine whether certain subgroups (e.g., high sodium & high protein) experience more bias than others.
+By addressing these issues, we can work toward building a more equitable prediction model.
+
+
