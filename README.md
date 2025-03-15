@@ -120,12 +120,6 @@ Overall, this result suggests that n_steps and n_ingredients alone are not stron
 
 # Final Model
 
-You said:
-
-also here are the results from the code of the 2 final models 
-ChatGPT said:
-Here’s the revised final model description incorporating your results:
-
 Final Model: Feature Selection and Justification
 In my final model, I utilized the following features:
 
