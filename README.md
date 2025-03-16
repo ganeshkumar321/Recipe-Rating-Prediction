@@ -92,9 +92,14 @@ ratings pulling down the median.
 
 ### Interesting Aggregates
 
-The pivot tables show how having "chocolate" in a recipe's name, ingredients, or description affects its average rating. 
-Recipes with "chocolate" in the name can indicate user preference for chocolate-themed dishes, while chocolate in the ingredients 
-shows whether its actual inclusion impacts ratings. Lastly, mentioning chocolate in the description could suggest that having appealing descriptions can influence users' decisions.
+The pivot tables show how having "chocolate" in a recipe's name, ingredients, or description affects its average rating. Recipes with "chocolate" in the name can indicate user preference for chocolate-themed dishes, while chocolate in the ingredients shows whether its actual inclusion impacts ratings. Lastly, mentioning chocolate in the description could suggest that having appealing descriptions can influence users' decisions.
+
+| chocolate_in_name |   rating |
+|:------------------|---------:|
+| False             |  4.63    |
+| True              |  4.60    |
+
+Recipes without chocolate in the name have a slightly higher average rating with 4.63 compared to those with chocolate, with 4.60. This suggests that explicitly labeling a recipe with "chocolate" does not necessarily result in better ratings.
 
 ## Assessment of Missingness
 
