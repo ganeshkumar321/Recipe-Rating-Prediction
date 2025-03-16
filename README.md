@@ -69,7 +69,7 @@ Here is a preview of the first 5 rows, but some of the columns have been removed
 <iframe
   src="assets/recipe_ratings_histogram.html"
   width="800"
-  height="300"
+  height="400"
   frameborder="0"
 ></iframe>
 
@@ -81,7 +81,7 @@ The distribution of average recipe ratings is skewed towards the upper end with 
 <iframe
   src="assets/beef_rating_boxplot.html"
   width="800"
-  height="300"
+  height="400"
   frameborder="0"
 ></iframe>
 
