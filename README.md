@@ -78,6 +78,13 @@ The distribution of average recipe ratings is skewed towards the upper end with 
 
 ### Bivariate Analysis
 
+<iframe
+  src="assets/beef_rating_boxplot.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 The box plot shows that recipes containing "beef" in their name tend to have  lower ratings compared to recipes without "beef."
 The lower whisker and first quartile for beef recipes suggest that these recipes might be more polarizing, with some lower 
 ratings pulling down the median.
