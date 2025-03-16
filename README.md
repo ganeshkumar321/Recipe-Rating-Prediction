@@ -81,7 +81,7 @@ The distribution of average recipe ratings is skewed towards the upper end with 
 <iframe
   src="assets/beef_rating_boxplot.html"
   width="800"
-  height="600"
+  height="300"
   frameborder="0"
 ></iframe>
 
