@@ -53,8 +53,7 @@ First I merged the recipes and the interactions data frame on their relative IDs
 
 My cleaned dataset contained 83,782 rows and 22 columns
 
-Here is a preview of the first 5 rows. 
-<!-- It is important to note that some columns have been removed as their values were too large to be effectively displayed on this site. -->
+Here is a preview of the first 5 rows, but some of the columns have been removed because there are too many to fit.
 
 | name                                | id      | minutes | contributor_id | sodium | protein | saturated_fat | carbohydrates |
 |-------------------------------------|---------|---------|----------------|--------|---------|---------------|---------------|
@@ -66,6 +65,13 @@ Here is a preview of the first 5 rows.
 
 
 ### Univariate Analysis
+
+<iframe
+  src="assets/recipe_ratings_histogram.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The distribution of average recipe ratings is skewed towards the upper end with most recipes having a rating close to 5, which. As we can see, the clusters are more visible at whole integers, which may suggest that recipes only got a few ratings, thus keeping their averages at or near whole numbers. 
 
