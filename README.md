@@ -69,7 +69,7 @@ Here is a preview of the first 5 rows, but some of the columns have been removed
 <iframe
   src="assets/recipe_ratings_histogram.html"
   width="800"
-  height="600"
+  height="300"
   frameborder="0"
 ></iframe>
 
