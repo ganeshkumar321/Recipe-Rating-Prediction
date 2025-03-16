@@ -116,6 +116,13 @@ Statistic: The absolute difference between the mean n_ingredients of recipes wit
 Significance Level: α = 0.05
 The observed difference in the number of ingredients between recipes with and without missing ratings is 0.25. The p-value is 0.002, which is less than 0.05, meaning that this result is statistically significant. Since none of the permuted differences were as extreme as the observed difference, we reject the null hypothesis and conclude that the missingness of ratings is dependent on the number of ingredients.
 
+<iframe
+  src="assets/n_ingredients_missingness.html"
+  width="800"
+  height="400"
+  frameborder="0"
+></iframe>
+
 Missingness of Rating Based on Calories:
 Null Hypothesis (H₀): The missingness of ratings does not depend on the calorie content of the recipe.
 Alternative Hypothesis (H₁): The missingness of ratings does depend on the calorie content of the recipe.
